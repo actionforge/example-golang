@@ -1,0 +1,90 @@
+entry: gh-start
+executions:
+  - src:
+      node: gh-start
+      port: exec-on-push
+    dst:
+      node: gh-checkout
+      port: exec
+  - src:
+      node: run-v1-silver-elephant-parrot
+      port: exec-success
+    dst:
+      node: run-v1-strawberry-zebra-kiwi
+      port: exec
+  - src:
+      node: gh-checkout
+      port: exec
+    dst:
+      node: gh-actions-setup-go-brown-penguin-silver
+      port: exec
+  - src:
+      node: gh-actions-setup-go-brown-penguin-silver
+      port: exec
+    dst:
+      node: run-v1-silver-elephant-parrot
+      port: exec
+  - src:
+      node: run-v1-strawberry-zebra-kiwi
+      port: exec-success
+    dst:
+      node: gh-actions-upload-artifact-rabbit-snake-pineapple
+      port: exec
+connections: []
+nodes:
+  - id: gh-start
+    type: gh-start@v1
+    position:
+      x: 0
+      y: 0
+    settings:
+      folded: false
+  - id: gh-checkout
+    type: github.com/actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+    position:
+      x: 290
+      y: 990
+    inputs:
+      fetch-depth: '0'
+    settings:
+      folded: false
+  - id: run-v1-silver-elephant-parrot
+    type: run@v1
+    position:
+      x: 1080
+      y: 860
+    inputs:
+      script: go mod tidy
+    settings:
+      folded: false
+  - id: run-v1-strawberry-zebra-kiwi
+    type: run@v1
+    position:
+      x: 1370
+      y: 770
+    inputs:
+      script: go build .
+    settings:
+      folded: false
+  - id: gh-actions-setup-go-brown-penguin-silver
+    type: github.com/actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+    position:
+      x: 700
+      y: 950
+    inputs:
+      go-version: '1.21'
+    settings:
+      folded: false
+  - id: gh-actions-upload-artifact-rabbit-snake-pineapple
+    type: >-
+      github.com/actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595
+    position:
+      x: 1700
+      y: 650
+    inputs:
+      name: example-go
+      path: example-go
+    settings:
+      folded: false
+registries: []
+description: ''
